@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}ACCESS2WORK — Inclusive employment{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">INCLUSIVE EMPLOYMENT, BUILT TO LAST</p>
+    <h1>Talent deserves a workplace that's <span class="gradient-text">ready for everyone.</span></h1>
+    <p class="hero-lead">We help Persons with Disabilities prepare for meaningful work—and help employers build accessible, inclusive hiring journeys.</p>
+    <div class="hero-actions"><a class="button" href="{{ url_for('register') }}">Create your account <span aria-hidden="true">→</span></a><a class="button button-ghost" href="{{ url_for('job_list') }}">Explore opportunities</a></div>
+    <div class="trust-line"><span class="trust-dot"></span> Candidate readiness · Employer readiness · Sustainable matching</div>
+  </div>
+  <div class="hero-art" aria-label="Three steps: verify ability, prepare employers, create a lasting match">
+    <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+    <div class="art-center"><span class="art-symbol">A2W</span><strong>Ability meets opportunity</strong><small>Designed for inclusion</small></div>
+    <div class="float-card card-top"><span class="mini-icon">✓</span><span><b>Ability Passport</b><small>Skills & evidence</small></span></div>
+    <div class="float-card card-right"><span class="mini-icon purple">◎</span><span><b>Inclusive employers</b><small>Readiness matters</small></span></div>
+    <div class="float-card card-bottom"><span class="mini-icon orange">↗</span><span><b>Better matches</b><small>Beyond a resume</small></span></div>
+  </div>
+</section>
+<section class="stats-grid" aria-label="Platform counts">
+  <div class="stat-card"><strong>{{ counts.candidates }}</strong><span>Candidate accounts</span></div>
+  <div class="stat-card"><strong>{{ counts.employers }}</strong><span>Employer accounts</span></div>
+  <div class="stat-card"><strong>{{ counts.jobs }}</strong><span>Opportunities posted</span></div>
+  <div class="stat-card"><strong>6 months</strong><span>Proposed pilot horizon</span></div>
+</section>
+<section class="section">
+  <div class="section-heading"><div><p class="eyebrow">THE ACCESS2WORK APPROACH</p><h2>Readiness on both sides.</h2></div><p>Inclusive employment works better when candidates and employers are both supported.</p></div>
+  <div class="feature-grid">
+    <article class="feature-card"><div class="feature-icon mint">01</div><h3>Verify ability</h3><p>Create an Ability Passport that distinguishes self-reported skills from skills supported by assessment evidence.</p><span class="feature-link">Candidate engine</span></article>
+    <article class="feature-card"><div class="feature-icon lilac">02</div><h3>Prepare employers</h3><p>Use an employer-readiness checklist to identify accessibility and inclusive recruitment improvements.</p><span class="feature-link">Employer engine</span></article>
+    <article class="feature-card"><div class="feature-icon peach">03</div><h3>Match for fit</h3><p>Consider job skills, location, work mode and accessibility preferences—not just a keyword match.</p><span class="feature-link">Compatibility matching</span></article>
+  </div>
+</section>
+<section class="section jobs-section">
+  <div class="section-heading"><div><p class="eyebrow">OPPORTUNITIES</p><h2>Explore recent roles.</h2></div><a class="text-link" href="{{ url_for('job_list') }}">View all jobs →</a></div>
+  {% if jobs %}<div class="job-grid">{% for job in jobs %}<article class="job-card"><div class="company-avatar">{{ job.company[:1]|upper }}</div><div class="job-meta"><span class="pill">{{ job.work_mode }}</span><span class="muted">{{ job.location or "Location flexible" }}</span></div><h3><a href="{{ url_for('job_detail', job_id=job.id) }}">{{ job.title }}</a></h3><p>{{ job.company }}</p><p class="job-description">{{ job.description|truncate(120) }}</p><a class="text-link" href="{{ url_for('job_detail', job_id=job.id) }}">View opportunity →</a></article>{% endfor %}</div>{% else %}<div class="empty-state"><div class="empty-icon">✳</div><h3>Opportunities are just getting started.</h3><p>Employers can create an account and post the first role.</p><a class="button button-ghost" href="{{ url_for('register') }}">Join ACCESS2WORK</a></div>{% endif %}
+</section>
+<section class="cta-banner"><div><p class="eyebrow">YOUR NEXT STEP</p><h2>Make inclusion practical.</h2><p>Join as a candidate or employer and help build a more accessible path to work.</p></div><a class="button button-light" href="{{ url_for('register') }}">Get started <span aria-hidden="true">→</span></a></section>
+{% endblock %}

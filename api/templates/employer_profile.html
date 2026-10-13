@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Employer profile — ACCESS2WORK{% endblock %}
+{% block content %}
+<section class="form-page"><p class="eyebrow">EMPLOYER PROFILE</p><h1>Prepare your workplace.</h1><p class="muted">Complete this self-assessment to identify inclusive hiring practices and improvement areas.</p>
+<form method="post" class="form-card wide-form stack-form">
+<label for="company">Company or organization name</label><input id="company" name="company" required value="{{ profile.company }}">
+<label for="location">Location</label><input id="location" name="location" value="{{ profile.location }}" placeholder="e.g. Coimbatore, Tamil Nadu">
+<div class="checklist-form"><label class="check-option"><input type="checkbox" name="physical_access" {% if profile.physical_access %}checked{% endif %}><span><strong>Physical accessibility</strong><small>Entry, movement and workspace access have been reviewed.</small></span></label>
+<label class="check-option"><input type="checkbox" name="digital_access" {% if profile.digital_access %}checked{% endif %}><span><strong>Digital accessibility</strong><small>Digital tools, documents and systems have been reviewed.</small></span></label>
+<label class="check-option"><input type="checkbox" name="accessible_recruitment" {% if profile.accessible_recruitment %}checked{% endif %}><span><strong>Accessible recruitment and interviews</strong><small>Hiring steps and interview formats can be adapted.</small></span></label>
+<label class="check-option"><input type="checkbox" name="work_flexibility" {% if profile.work_flexibility %}checked{% endif %}><span><strong>Work flexibility</strong><small>Remote, hybrid or flexible options are considered where feasible.</small></span></label>
+<label class="check-option"><input type="checkbox" name="staff_awareness" {% if profile.staff_awareness %}checked{% endif %}><span><strong>Manager and staff awareness</strong><small>Teams receive inclusion and communication guidance.</small></span></label>
+<label class="check-option"><input type="checkbox" name="accommodation_process" {% if profile.accommodation_process %}checked{% endif %}><span><strong>Accommodation process</strong><small>Requests can be made and handled through a clear process.</small></span></label></div>
+<p class="field-help">This is a prototype self-assessment, not an independent audit or official certification.</p><div class="form-actions"><a class="button button-ghost" href="{{ url_for('dashboard') }}">Cancel</a><button class="button" type="submit">Save readiness checklist</button></div>
+</form></section>
+{% endblock %}
