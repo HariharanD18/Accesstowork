@@ -5,7 +5,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from werkzeug.security import generate_password_hash, check_password_hash
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-DATABASE = os.path.join(BASE_DIR, "access2work.db")
+if os.environ.get("VERCEL"):
+    DATABASE = os.path.join("/tmp", "access2work.db")
+else:
+    DATABASE = os.path.join(BASE_DIR, "access2work.db")
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "change-this-dev-secret-before-deployment")
@@ -16,6 +19,8 @@ app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
 def get_db():
     if "db" not in g:
+        if not os.path.exists(DATABASE):
+            init_db()
         g.db = sqlite3.connect(DATABASE)
         g.db.row_factory = sqlite3.Row
         g.db.execute("PRAGMA foreign_keys = ON")
