@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Ability Passport profile — ACCESS2WORK{% endblock %}
+{% block content %}
+<section class="form-page"><p class="eyebrow">CANDIDATE PROFILE</p><h1>Your Ability Passport</h1><p class="muted">Share skills and preferences that help employers understand your fit. Only label skills as verified after appropriate assessment.</p>
+<form method="post" class="form-card wide-form stack-form">
+<label for="skills">Skills</label><textarea id="skills" name="skills" rows="3" placeholder="e.g. Python, customer support, data entry">{{ profile.skills }}</textarea><small class="field-help">Self-reported skills are not verified automatically.</small>
+<label for="location">Location</label><input id="location" name="location" value="{{ profile.location }}" placeholder="e.g. Coimbatore, Tamil Nadu">
+<label for="work_mode">Preferred work mode</label><select id="work_mode" name="work_mode">{% for mode in ['Any','On-site','Hybrid','Remote'] %}<option {% if profile.work_mode==mode %}selected{% endif %}>{{ mode }}</option>{% endfor %}</select>
+<label for="accessibility_needs">Accessibility preferences or accommodation needs (optional)</label><textarea id="accessibility_needs" name="accessibility_needs" rows="3" placeholder="Share only what you are comfortable sharing">{{ profile.accessibility_needs }}</textarea><small class="field-help">This information is sensitive. In this prototype, it is stored in the local database and visible to the account and relevant employer application views only where displayed. Use synthetic data for demos.</small>
+<label for="bio">About you</label><textarea id="bio" name="bio" rows="4" placeholder="A short introduction">{{ profile.bio }}</textarea>
+<div class="form-actions"><a class="button button-ghost" href="{{ url_for('dashboard') }}">Cancel</a><button class="button" type="submit">Save profile</button></div>
+</form></section>
+{% endblock %}

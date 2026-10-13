@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}{{ job.title }} — ACCESS2WORK{% endblock %}
+{% block content %}
+<section class="job-detail-wrap"><a class="text-link" href="{{ url_for('job_list') }}">← All opportunities</a><article class="panel job-detail"><div class="job-meta"><span class="pill">{{ job.work_mode }}</span><span class="muted">{{ job.location or "Location flexible" }}</span></div><p class="eyebrow">{{ job.company }}</p><h1>{{ job.title }}</h1><p class="muted">Posted by {{ job.employer_name }} · {{ job.created_at[:10] }}</p><hr><h2>About the role</h2><p class="job-body">{{ job.description }}</p><h2>Skills and experience</h2><p>{{ job.skills or "Discuss role-specific skills with the employer." }}</p>
+{% if current_user and current_user['role']=='candidate' %}{% if applied %}<div class="flash flash-success">You've already applied for this role.</div>{% else %}<form method="post" action="{{ url_for('apply_job', job_id=job.id) }}"><button class="button" type="submit">Apply for this role →</button></form>{% endif %}{% elif not current_user %}<a class="button" href="{{ url_for('login') }}">Sign in to apply</a>{% else %}<p class="muted">Candidate accounts can apply for this role.</p>{% endif %}
+</article></section>
+{% endblock %}

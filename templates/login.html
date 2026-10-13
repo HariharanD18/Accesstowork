@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Sign in — ACCESS2WORK{% endblock %}
+{% block content %}
+<section class="auth-layout"><div class="auth-aside"><p class="eyebrow">WELCOME BACK</p><h1>Your next opportunity starts here.</h1><p>Continue building your profile, exploring jobs, or improving your inclusive hiring journey.</p><div class="aside-note">One platform. Two sides of readiness. A more sustainable match.</div></div>
+<div class="form-card"><p class="eyebrow">YOUR ACCOUNT</p><h2>Sign in</h2><p class="muted">Enter your account details to continue.</p><form method="post" class="stack-form">
+<label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required value="{{ request.form.get('email','') }}">
+<label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required>
+<button class="button button-full" type="submit">Sign in →</button></form><p class="form-bottom">New to ACCESS2WORK? <a href="{{ url_for('register') }}">Create an account</a></p></div></section>
+{% endblock %}

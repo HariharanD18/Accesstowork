@@ -8,8 +8,13 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATES_DIR = os.path.join(CURRENT_DIR, "templates")
 STATIC_DIR = os.path.join(CURRENT_DIR, "static")
 
-# On Vercel / serverless, write to /tmp
-DATABASE = os.path.join("/tmp", "access2work.db") if os.environ.get("VERCEL") else os.path.join(CURRENT_DIR, "access2work.db")
+import tempfile
+
+# Bulletproof database location: write to OS temp directory (/tmp on Linux/Vercel)
+if os.environ.get("VERCEL") or not os.access(CURRENT_DIR, os.W_OK):
+    DATABASE = os.path.join(tempfile.gettempdir(), "access2work.db")
+else:
+    DATABASE = os.path.join(CURRENT_DIR, "access2work.db")
 
 app = Flask(
     __name__,
@@ -372,7 +377,3 @@ def not_found(_error):
 
 
 handler = app
-
-if __name__ == "__main__":
-    init_db()
-    app.run(debug=True)
