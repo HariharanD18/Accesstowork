@@ -104,7 +104,7 @@ def role_required(role):
             if session.get("role") != role:
                 abort(403)
             return fn(*args, **kwargs)
-        return decorator
+        return wrapper
     return decorator
 
 
