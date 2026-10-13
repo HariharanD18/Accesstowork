@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ACCESS2WORK connects verified ability with prepared employers for sustainable inclusive employment.">
+  <title>{% block title %}ACCESS2WORK{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark" aria-hidden="true">A2W</span><span>ACCESS<span class="brand-accent">2</span>WORK</span></a>
+    <nav aria-label="Main navigation">
+      <a href="{{ url_for('jobs') if false else url_for('job_list') }}">Find jobs</a>
+      {% if current_user %}
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('profile') }}">My profile</a>
+        <span class="nav-user">{{ current_user['name'] }}</span>
+        <form class="inline-form" action="{{ url_for('logout') }}" method="post"><button class="nav-button" type="submit">Sign out</button></form>
+      {% else %}
+        <a href="{{ url_for('login') }}">Sign in</a>
+        <a class="button button-small" href="{{ url_for('register') }}">Get started</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main id="main" class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<div class="flash-stack" aria-live="polite">{% for category, message in messages %}<div class="flash flash-{{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div class="footer-brand">ACCESS2WORK</div>
+    <p>Verified Ability. Prepared Employers. Sustainable Employment.</p>
+    <p class="muted">A prototype inspired by the ACCESS2WORK Yuva Hackathon presentation.</p>
+  </footer>
+</body>
+</html>

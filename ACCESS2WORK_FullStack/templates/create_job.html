@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Post a job — ACCESS2WORK{% endblock %}
+{% block content %}
+<section class="form-page"><p class="eyebrow">EMPLOYER TOOLS</p><h1>Post an opportunity.</h1><p class="muted">Write a clear role description and include relevant accessibility and work-mode information.</p>
+<form method="post" class="form-card wide-form stack-form">
+<label for="title">Job title</label><input id="title" name="title" required maxlength="150" value="{{ request.form.get('title','') }}">
+<label for="company">Company name</label><input id="company" name="company" required maxlength="150" value="{{ request.form.get('company','') }}">
+<label for="location">Location</label><input id="location" name="location" value="{{ request.form.get('location','') }}" placeholder="e.g. Coimbatore, Tamil Nadu">
+<label for="work_mode">Work mode</label><select id="work_mode" name="work_mode">{% for mode in ['On-site','Hybrid','Remote'] %}<option {% if request.form.get('work_mode','Hybrid')==mode %}selected{% endif %}>{{ mode }}</option>{% endfor %}</select>
+<label for="skills">Skills (comma-separated)</label><input id="skills" name="skills" value="{{ request.form.get('skills','') }}" placeholder="e.g. Excel, communication, Python">
+<label for="description">Role description</label><textarea id="description" name="description" rows="7" required placeholder="Responsibilities, essential requirements, interview process and accommodation options">{{ request.form.get('description','') }}</textarea>
+<div class="form-actions"><a class="button button-ghost" href="{{ url_for('dashboard') }}">Cancel</a><button class="button" type="submit">Publish job →</button></div>
+</form></section>
+{% endblock %}
